@@ -13,6 +13,8 @@ if (!isServer) exitWith {};
 // 3 = Tanoa Jungle
 // 4 = Altis Deciduous
 // 5 = Altis Coniferous
+// 6 = Takistan Desert
+// 7 = Takistan Forest
 
 // Example
 // [this,250,5,750,5,1500,["clearmarker_0"]] execVM "scripts\randomForest.sqf";
@@ -129,6 +131,33 @@ _forestDict = [ // Predefine forest types, their respective tree and bush classn
 			["a3\plants_f\bush\b_ficusc2d_f.p3d",6.5],
 			["a3\plants_f\bush\b_ficusc2s_f.p3d",6.5]
 		]
+	],
+	[ // Takistan Desert
+		[ // Plants
+			["ca\plants_e\bush\b_pinusm1s_ep1.p3d",6], // Bush
+			["ca\plants_e\bush\b_pistacial1s_ep1.p3d",6], // Bush
+			["ca\plants_e\bush\b_amygdalusn1s_ep1.p3d",5.4] // Bush
+		],
+		[ // Rocks
+			["ca\rocks_e\r_tk_boulder_02_ep1.p3d",-1.5],
+			["ca\rocks_e\r_tk_boulder_03_ep1.p3d",-4.5],
+			["ca\rocks_e\r_tk_boulder_01_ep1.p3d",-1],
+			["ca\rocks_e\r_tk_rock_03_ep1.p3d",-15],
+			["ca\rocks_e\r_tk_rock_01_ep1.p3d",-7]
+		]
+	],
+	[ // Takistan Forest
+		[ // Plants
+			["ca\plants_e\tree\t_pinuse2s_ep1.p3d",12], // Tree
+			["ca\plants_e\misc\misc_trunk_water_ep1.p3d",10] // Broken tree
+		],
+		[ // Rocks
+			["ca\rocks_e\r_tk_boulder_02_ep1.p3d",-1.5],
+			["ca\rocks_e\r_tk_boulder_03_ep1.p3d",-4.5],
+			["ca\rocks_e\r_tk_boulder_01_ep1.p3d",-1],
+			["ca\rocks_e\r_tk_rock_03_ep1.p3d",-15],
+			["ca\rocks_e\r_tk_rock_01_ep1.p3d",-7]
+		]
 	]
 ];
 
@@ -160,6 +189,10 @@ for "_i" from 1 to _bushCount do { // Spawn bushes up to max bushes count
 	_randomTree = selectRandom _forestBushes; // Select random bush
 	_treePath = _randomTree select 0;
 	_treeHeight = _randomTree select 1;
+	if (_type == 6) then {
+		_rockRandom = (random 2) - 1;
+		_treeHeight = _treeHeight - _rockRandom;
+	};
 	_treeX = (_objPos select 0) + ((random (_radius * 2)) - _radius); // Begin pos selection
 	_treeY = (_objPos select 1) + ((random (_radius * 2)) - _radius);
 	_treeZ = getTerrainHeightASL [_treeX,_treeY];
