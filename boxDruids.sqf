@@ -1,3 +1,10 @@
+//////////////////////////////////
+// Blackbox's Druid script      //
+// v1   Green smokes            //
+//////////////////////////////////
+
+// This is a meme script, call it via init.sqf
+
 if (isDedicated) exitWith {}; // Will not run on server, client-side loading
 
 [] spawn {
